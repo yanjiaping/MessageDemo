@@ -13,22 +13,22 @@ import cn.jpush.api.push.model.notification.Notification;
 
 public class BuildPushPayloadUtil {
 
-	private static final String ALERT = "ALERT";
+	private static final String NOTIFICATION = "NOTIFICATION";
 	private static final String TITLE = "TITLE";
 	private static final String MSG_CONTENT = "MSG_CONTENT";
 	private static final String REGISTRATION_ID = "1104a89792ded9938f7";
 
 	/**
-	 * 快捷地构建推送对象：所有平台，所有设备，内容为 ALERT 的通知
+	 * 快捷地构建推送对象：所有平台，所有设备，内容为 NOTIFICATION 的通知
 	 * 
 	 * @return
 	 */
 	public static PushPayload buildPushObject_all_all_alert() {
-		return PushPayload.alertAll(ALERT);
+		return PushPayload.alertAll(NOTIFICATION);
 	}
 
 	/**
-	 * 构建推送对象：所有平台，推送目标是别名为 "alias1"，通知内容为 ALERT
+	 * 构建推送对象：所有平台，推送目标是别名为 "alias1"，通知内容为 NOTIFICATION
 	 * 
 	 * @return
 	 */
@@ -36,12 +36,12 @@ public class BuildPushPayloadUtil {
 		return PushPayload.newBuilder()
 				.setPlatform(Platform.all())
 				.setAudience(Audience.alias("alias1"))
-				.setNotification(Notification.alert(ALERT))
+				.setNotification(Notification.alert(NOTIFICATION))
 				.build();
 	}
 
 	/**
-	 * 构建推送对象：平台是 Android，目标是 tag 为 "tag1" 的设备，内容是 Android 通知 ALERT，并且标题为 TITLE
+	 * 构建推送对象：平台是 Android，目标是 tag 为 "tag1" 的设备，内容是 Android 通知 NOTIFICATION，并且标题为 TITLE
 	 * 
 	 * @return
 	 */
@@ -49,12 +49,12 @@ public class BuildPushPayloadUtil {
 		return PushPayload.newBuilder()
 				.setPlatform(Platform.android())
 				.setAudience(Audience.tag("tag1"))
-				.setNotification(Notification.android(ALERT, TITLE, null))
+				.setNotification(Notification.android(NOTIFICATION, TITLE, null))
 				.build();
 	}
 
 	/**
-	 * 构建推送对象：平台是 iOS，推送目标是 "tag1", "tag_all" 的交集，推送内容同时包括通知与消息 - 通知信息是 ALERT，角标数字为
+	 * 构建推送对象：平台是 iOS，推送目标是 "tag1", "tag_all" 的交集，推送内容同时包括通知与消息 - 通知信息是 NOTIFICATION，角标数字为
 	 * 5，通知声音为 "happy"，并且附加字段 from = "JPush"；消息内容是 MSG_CONTENT。通知是 APNs 推送通道的，消息是
 	 * JPush 应用内消息通道的。APNs 的推送环境是“生产”（如果不显式设置的话，Library 会默认指定为开发）
 	 * 
@@ -66,7 +66,7 @@ public class BuildPushPayloadUtil {
 				.setAudience(Audience.tag_and("tag1", "tag_all"))
 				.setNotification(Notification.newBuilder()
 						.addPlatformNotification(IosNotification.newBuilder()
-								.setAlert(ALERT)
+								.setAlert(NOTIFICATION)
 								.setBadge(5)
 								.setSound("happy")
 								.addExtra("from", "JPush")
@@ -90,7 +90,7 @@ public class BuildPushPayloadUtil {
 				.setPlatform(Platform.android_ios())
 				.setAudience(Audience.newBuilder()
 						.addAudienceTarget(AudienceTarget.tag("tag1", "tag2"))
-						.addAudienceTarget(AudienceTarget.alias("alias1", "alias2"))
+						.addAudienceTarget(AudienceTarget.alias("alias1"))
 						.build())
 				.setMessage(Message.newBuilder()
 						.setMsgContent(MSG_CONTENT)
