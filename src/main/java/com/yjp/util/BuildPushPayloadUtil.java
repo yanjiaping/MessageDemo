@@ -92,6 +92,7 @@ public class BuildPushPayloadUtil {
 						.addAudienceTarget(AudienceTarget.tag("tag1", "tag2"))
 						.addAudienceTarget(AudienceTarget.alias("alias1"))
 						.build())
+				.setNotification(Notification.alert(NOTIFICATION))
 				.setMessage(Message.newBuilder()
 						.setMsgContent(MSG_CONTENT)
 						.addExtra("from", "JPush")
